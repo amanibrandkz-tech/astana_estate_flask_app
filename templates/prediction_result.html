@@ -1,11 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction Result</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Результат прогноза</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1024;
+      --card: rgba(14, 18, 42, 0.7);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --accent: #ffb347;
+      --accent-2: #5ad8ff;
+      --text: #f4f6fb;
+      --muted: #a9b3ce;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 20% 20%, rgba(90, 216, 255, 0.18), transparent 35%),
+                  radial-gradient(circle at 80% 10%, rgba(255, 179, 71, 0.16), transparent 32%),
+                  radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.05), transparent 40%),
+                  var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .card {
+      width: min(640px, 100%);
+      padding: 32px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      text-align: center;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.06);
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+    .amount {
+      font-size: clamp(30px, 6vw, 46px);
+      font-weight: 600;
+      color: var(--accent-2);
+      margin: 10px 0 4px;
+    }
+    .hint {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    a.button {
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      color: #0c0f1c;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(90, 216, 255, 0.25);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    a.button:hover { transform: translateY(-1px); box-shadow: 0 16px 36px rgba(90, 216, 255, 0.3); }
+    a.button:active { transform: translateY(0); }
+  </style>
 </head>
 <body>
-    <h1>{{ prediction_text }}</h1>
+  <div class="card">
+    <div class="pill">Прогноз готов</div>
+    <h1 class="title">Оценочная стоимость</h1>
+    <div class="amount">{{ prediction_text }}</div>
+    <p class="hint">Результат основан на модели CatBoost и ваших параметрах квартиры.</p>
+    <div class="actions">
+      <a class="button" href="{{ url_for('Home') }}">Новый расчёт</a>
+    </div>
+  </div>
 </body>
 </html>

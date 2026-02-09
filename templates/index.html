@@ -182,7 +182,7 @@
 
         <div class="field">
           <label for="complexInput">Название комплекса</label>
-          <input type="text" id="complexInput" name="complex_name" placeholder="Название ЖК" list="complexList" required autocomplete="off" />
+          <input type="text" id="complexInput" name="complex_name" placeholder="Название ЖК" list="complexList" required autocomplete="off" onfocus="if (this.showPicker) this.showPicker();" />
           <div class="helper-text">Если дом до 2000 года или без названия: no name / «бережневка» / «панелька нового типа».</div>
           <datalist id="complexList"></datalist>
         </div>
@@ -329,11 +329,16 @@
     readCSVFile("/data/complexes.csv", function(csvData) {
       var complexData = csvToArray(csvData);
       var datalistElement = document.getElementById("complexList");
+      var input = document.getElementById("complexInput");
       complexData.forEach(function(complex) {
         var option = document.createElement("option");
         option.value = complex.name;
         datalistElement.appendChild(option);
       });
+      // Авто-раскрытие списка на фокус (там, где браузер поддерживает showPicker).
+      if (input && input.showPicker) {
+        input.addEventListener("focus", function() { input.showPicker(); });
+      }
     });
   </script>
 </body>

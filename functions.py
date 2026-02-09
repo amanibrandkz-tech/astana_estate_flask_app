@@ -16,7 +16,7 @@ import json
 
 
 
-
+api_key = os.getenv("2GIS_API_KEY")
 
 #---------------------------------------------------------
 # Function for Geocoding Addresses using the 2GIS API
@@ -37,7 +37,6 @@ def geocode_2gis(address):
     '''
     
     address = address + ", Астана"
-    api_key = '768ac379-04fb-4f9e-a775-959e3e2bc30b'
     url = f'https://catalog.api.2gis.com/3.0/items/geocode?q={address}&fields=items.point&key={api_key}'
 
     try:
